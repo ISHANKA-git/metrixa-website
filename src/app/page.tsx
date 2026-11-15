@@ -1,19 +1,9 @@
-import { Contact } from "@/components/contact";
-import { Hero } from "@/components/hero";
-import { Packages } from "@/components/packages";
-import { Portfolio } from "@/components/portfolio";
-import { Services } from "@/components/services";
-import { WhyChoose } from "@/components/why-choose";
+import Navbar from "@/components/Navbar";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main id="main">
-      <Hero />
-      <Services />
-      <Packages />
-      <WhyChoose />
-      <Portfolio />
-      <Contact />
-    </main>
+    <div className="min-h-screen bg-[#060809] text-white">
+      <Navbar />
+    </div>
   );
 }
