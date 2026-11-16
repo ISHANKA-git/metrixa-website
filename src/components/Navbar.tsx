@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -35,7 +35,7 @@ const navItems: NavItem[] = [
       { title: "Video & Reel Editing", desc: "Short reels & promotional video editing", tag: "Hot", href: "/services#small-business" },
       { title: "Content Bundles", desc: "Brand post designs + captions & hashtags", tag: "Rs.250", href: "/services#small-business" },
       { title: "Mini Website Creation", desc: "Single-page site + Free domain & hosting", tag: "Rs.5000", href: "/services#small-business" },
-      { title: "Digital Starter Pack", desc: "Complete all-in-one small business bundle", tag: "Best Value", href: "/services#small-business" },
+      { title: "Digital Starter Pack", desc: "Complete all-in-one small business bundle", tag: "Rs.7500", href: "/services#small-business" },
     ],
   },
   {
@@ -49,9 +49,9 @@ const navItems: NavItem[] = [
     href: "/digital-store",
     sinhalaSubtitle: "ඩිජිටල් මෙවලම් (Instant Access)",
     items: [
-      { title: "QuillBot Pro", desc: "Premium AI writing & paraphrasing tool", tag: "Hot", href: "/digital-store#quillbot" },
-      { title: "CapCut Pro", desc: "Advanced video editing & pro effects", tag: "Popular", href: "/digital-store#capcut" },
-      { title: "Figma Pro", desc: "Professional UI/UX design workspace", tag: "Pro", href: "/digital-store#figma" },
+      { title: "QuillBot Pro", desc: "Premium AI writing & paraphrasing tool", tag: "Hot", href: "/digital-store#quillbot-pro" },
+      { title: "CapCut Pro", desc: "Advanced video editing & pro effects", tag: "Popular", href: "/digital-store#capcut-pro" },
+      { title: "Figma Pro", desc: "Professional UI/UX design workspace", tag: "Pro", href: "/digital-store#figma-pro" },
     ],
   },
   {
@@ -74,8 +74,18 @@ const navItems: NavItem[] = [
 export default function Navbar() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const openMenu = (id: string) => {
     if (timeoutRef.current) {
@@ -92,7 +102,13 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[9999]">
+    <header
+      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
+        isScrolled
+          ? "bg-[#050706]/90 backdrop-blur-2xl border-b border-lime-400/30 shadow-[0_12px_40px_rgba(0,0,0,0.9),0_2px_20px_rgba(163,230,53,0.12)]"
+          : "bg-[#050706]/65 backdrop-blur-xl border-b border-white/10"
+      }`}
+    >
       <style>{`
         .nav-trigger-wrap .nav-dropdown-box {
           opacity: 0;
@@ -120,14 +136,25 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* Cyberpunk Glows */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 h-44 -z-10">
-        <div className="absolute -top-16 right-[8%] w-[500px] h-[240px] bg-lime-400/20 blur-[100px] rounded-full" />
-        <div className="absolute -top-20 left-[8%] w-[300px] h-[180px] bg-lime-400/10 blur-[90px] rounded-full" />
+      {/* Subtle Top Neon Accent Line on Scroll */}
+      <div
+        className={`pointer-events-none absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-lime-400/60 to-transparent transition-opacity duration-300 ${
+          isScrolled ? "opacity-100" : "opacity-30"
+        }`}
+      />
+
+      {/* Cyberpunk Ambient Glows inside Glass Bar */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-full overflow-hidden -z-10">
+        <div className="absolute -top-16 right-[10%] w-[420px] h-[160px] bg-lime-400/15 blur-[80px] rounded-full" />
+        <div className="absolute -top-16 left-[10%] w-[280px] h-[140px] bg-lime-400/10 blur-[70px] rounded-full" />
       </div>
 
-      {/* Main Navbar Bar */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 h-24 flex items-center justify-between gap-4">
+      {/* Main Navbar Container */}
+      <div
+        className={`mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4 transition-all duration-300 ${
+          isScrolled ? "h-20" : "h-24"
+        }`}
+      >
         {/* Left: Hexagon Logo + MetriXa */}
         <Link href="/" className="flex items-center gap-3 group shrink-0">
           <div className="relative flex items-center justify-center h-12 w-11 bg-lime-400 p-0.5 [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)] shadow-[0_0_20px_rgba(163,230,53,0.5)] group-hover:scale-105 transition-transform">
@@ -143,7 +170,7 @@ export default function Navbar() {
         </Link>
 
         {/* Right: Cyberpunk Pill Capsule */}
-        <nav className="hidden lg:flex items-center h-[54px] rounded-full border border-lime-400/40 bg-zinc-950/95 pl-6 pr-1.5 shadow-[0_0_35px_rgba(163,230,53,0.2)]">
+        <nav className="hidden lg:flex items-center h-[54px] rounded-full border border-lime-400/40 bg-zinc-950/90 backdrop-blur-md pl-6 pr-1.5 shadow-[0_0_30px_rgba(163,230,53,0.18),inset_0_1px_0_rgba(255,255,255,0.08)]">
           <div className="flex items-center gap-5 xl:gap-6 pr-5">
             {navItems.map((item) => {
               const hasDropdown = item.items && item.items.length > 0;
@@ -195,7 +222,7 @@ export default function Navbar() {
                     onMouseEnter={() => openMenu(item.id)}
                     onMouseLeave={closeMenuWithDelay}
                   >
-                    <div className="rounded-2xl border-2 border-lime-400 bg-[#070b08] p-4 shadow-[0_25px_70px_rgba(0,0,0,0.98),0_0_35px_rgba(163,230,53,0.4)]">
+                    <div className="rounded-2xl border-2 border-lime-400 bg-[#070b08]/95 backdrop-blur-2xl p-4 shadow-[0_25px_70px_rgba(0,0,0,0.98),0_0_35px_rgba(163,230,53,0.4)]">
                       {item.sinhalaSubtitle && (
                         <div className="mb-3 flex items-center justify-between rounded-xl border border-lime-400/40 bg-lime-400/15 px-3.5 py-2 text-xs font-extrabold text-lime-400">
                           <span>✨ {item.sinhalaSubtitle}</span>
@@ -248,7 +275,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden inline-flex items-center justify-center h-11 w-11 rounded-full border border-lime-400/40 bg-zinc-950 text-lime-400"
+          className="lg:hidden inline-flex items-center justify-center h-11 w-11 rounded-full border border-lime-400/40 bg-zinc-950/90 text-lime-400"
           aria-label="Toggle Menu"
         >
           {mobileMenuOpen ? "✕" : "☰"}
@@ -257,7 +284,7 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mx-6 mt-2 rounded-2xl border-2 border-lime-400/50 bg-[#070b08] p-5 flex flex-col gap-3 shadow-2xl max-h-[80vh] overflow-y-auto">
+        <div className="lg:hidden mx-6 mb-4 rounded-2xl border-2 border-lime-400/50 bg-[#070b08]/95 backdrop-blur-2xl p-5 flex flex-col gap-3 shadow-2xl max-h-[80vh] overflow-y-auto">
           {navItems.map((item) => (
             <div key={item.id} className="border-b border-white/10 pb-2.5 last:border-none">
               <Link
