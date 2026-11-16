@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 export default function FinalCTA() {
   return (
@@ -60,17 +61,17 @@ export default function FinalCTA() {
               Whether you want to grow your business, develop new skills or explore powerful digital tools, your journey starts with MetriXa.
             </p>
 
-            {/* Primary CTA Button */}
+            {/* Primary CTA Button -> Linked to /contact */}
             <div className="flex items-center justify-center">
-              <a
-                href="#services"
+              <Link
+                href="/contact"
                 className="group inline-flex items-center justify-center gap-3 rounded-full bg-gradient-to-b from-lime-300 to-lime-500 hover:from-lime-200 hover:to-lime-400 px-9 py-4 sm:py-4.5 text-xs sm:text-sm font-black uppercase tracking-wider text-zinc-950 transition-all duration-300 shadow-[0_0_35px_rgba(163,230,53,0.55)] hover:shadow-[0_0_50px_rgba(163,230,53,0.9)] hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>GET STARTED WITH METRIXA</span>
                 <span className="text-base transition-transform duration-300 group-hover:translate-x-1.5">
                   →
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
 

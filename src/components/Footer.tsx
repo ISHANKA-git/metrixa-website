@@ -1,19 +1,20 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 const exploreLinks = [
-  { name: "Home", href: "#" },
-  { name: "Services", href: "#services" },
-  { name: "Courses", href: "#courses" },
-  { name: "Digital Store", href: "#digital-tools" },
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/services" },
+  { name: "Courses", href: "/courses" },
+  { name: "Digital Store", href: "/digital-store" },
 ];
 
 const companyLinks = [
-  { name: "About Us", href: "#about" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Community", href: "#community" },
-  { name: "Contact", href: "#contact" },
+  { name: "About Us", href: "/about" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Community", href: "/community" },
+  { name: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [
@@ -67,7 +68,7 @@ export default function Footer() {
           
           {/* COLUMN 1: Brand (Logo + Short Description) */}
           <div className="lg:col-span-4">
-            <a href="#" className="inline-flex items-center gap-3 group mb-5">
+            <Link href="/" className="inline-flex items-center gap-3 group mb-5">
               <div className="relative flex items-center justify-center h-11 w-10 bg-lime-400 p-0.5 [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)] shadow-[0_0_20px_rgba(163,230,53,0.45)]">
                 <img
                   src="/logo.jpg"
@@ -78,7 +79,7 @@ export default function Footer() {
               <span className="font-sans text-2xl font-black tracking-wide text-white leading-none">
                 Metri<span className="text-lime-400">Xa</span>
               </span>
-            </a>
+            </Link>
 
             <p className="text-sm text-zinc-400 leading-relaxed max-w-sm mb-6">
               Your all-in-one digital partner combining creative design, smart business solutions, online courses, and premium digital tools to help you build, create, and grow.
@@ -98,13 +99,13 @@ export default function Footer() {
             <ul className="space-y-3">
               {exploreLinks.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-zinc-400 hover:text-lime-400 transition-colors inline-flex items-center gap-1.5 group"
                   >
                     <span className="h-1 w-1 rounded-full bg-lime-400/0 group-hover:bg-lime-400 transition-all" />
                     <span>{link.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -118,13 +119,13 @@ export default function Footer() {
             <ul className="space-y-3">
               {companyLinks.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-zinc-400 hover:text-lime-400 transition-colors inline-flex items-center gap-1.5 group"
                   >
                     <span className="h-1 w-1 rounded-full bg-lime-400/0 group-hover:bg-lime-400 transition-all" />
                     <span>{link.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -170,12 +171,12 @@ export default function Footer() {
           <p>© 2026 MetriXa. All Rights Reserved.</p>
 
           <div className="flex items-center gap-6">
-            <a href="#privacy" className="hover:text-lime-400 transition-colors">
+            <Link href="/contact" className="hover:text-lime-400 transition-colors">
               Privacy Policy
-            </a>
-            <a href="#terms" className="hover:text-lime-400 transition-colors">
+            </Link>
+            <Link href="/contact" className="hover:text-lime-400 transition-colors">
               Terms &amp; Conditions
-            </a>
+            </Link>
           </div>
         </div>
       </div>

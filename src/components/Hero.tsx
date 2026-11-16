@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
+import Link from "next/link";
 
 const mainEntryCards = [
   {
@@ -8,7 +9,7 @@ const mainEntryCards = [
     title: "Services",
     subtitle: "Creative & Business Solutions",
     desc: "Custom brand logos, social media covers, high-converting small business websites, and smart automation.",
-    href: "#services",
+    href: "/services",
     tag: "BUILD & SCALE",
     icon: (
       <svg className="w-6 h-6 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -21,7 +22,7 @@ const mainEntryCards = [
     title: "Courses",
     subtitle: "Learn & Develop Skills",
     desc: "Practical, industry-ready online courses designed to help creators, freelancers, and entrepreneurs master digital skills.",
-    href: "#courses",
+    href: "/courses",
     tag: "SKILL UP",
     icon: (
       <svg className="w-6 h-6 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -35,7 +36,7 @@ const mainEntryCards = [
     title: "Digital Store",
     subtitle: "Tools & Digital Products",
     desc: "Instant access to premium creative tools including QuillBot Pro, CapCut Pro, Figma Pro, and ready-to-use digital assets.",
-    href: "#digital-tools",
+    href: "/digital-store",
     tag: "INSTANT ACCESS",
     icon: (
       <svg className="w-6 h-6 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -187,27 +188,27 @@ export default function Hero() {
               From creative design and powerful digital tools to professional online courses and smart business solutions — everything you need to succeed in the digital world starts here.
             </p>
 
-            {/* Two Primary & Secondary CTAs with Smooth Hover Effects */}
+            {/* Two Primary & Secondary CTAs Linked to /services & /digital-store */}
             <div className="animate-fade-up-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-12">
-              <a
-                href="#services"
+              <Link
+                href="/services"
                 className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-b from-lime-300 to-lime-500 px-8 py-4 text-sm font-black text-zinc-950 transition-all duration-300 shadow-[0_0_30px_rgba(163,230,53,0.45)] hover:shadow-[0_0_45px_rgba(163,230,53,0.85)] hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>Explore Services</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1.5">
                   →
                 </span>
-              </a>
+              </Link>
 
-              <a
-                href="#digital-tools"
+              <Link
+                href="/digital-store"
                 className="group inline-flex items-center justify-center gap-2.5 rounded-full border border-white/15 bg-white/[0.03] hover:border-lime-400/60 hover:bg-lime-400/[0.08] px-8 py-4 text-sm font-bold text-white transition-all duration-300 backdrop-blur-md hover:shadow-[0_0_25px_rgba(163,230,53,0.2)] hover:-translate-y-0.5"
               >
                 <span>Explore Digital Store</span>
                 <span className="text-lime-400 transition-transform duration-300 group-hover:translate-x-1.5">
                   →
                 </span>
-              </a>
+              </Link>
             </div>
 
             {/* Bottom Label */}
@@ -363,7 +364,7 @@ export default function Hero() {
         {/* 3 Entry Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {mainEntryCards.map((card) => (
-            <a
+            <Link
               key={card.id}
               href={card.href}
               className="group relative rounded-3xl border border-white/10 bg-zinc-950/70 p-7 backdrop-blur-xl transition-all duration-300 hover:border-lime-400/70 hover:bg-[#09110b]/90 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(163,230,53,0.18)] hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden"
@@ -403,7 +404,7 @@ export default function Hero() {
                   →
                 </span>
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
