@@ -103,10 +103,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 w-full max-w-[100vw] z-[9999] transition-all duration-300 ${
         isScrolled
           ? "bg-[#050706]/90 backdrop-blur-2xl border-b border-lime-400/30 shadow-[0_12px_40px_rgba(0,0,0,0.9),0_2px_20px_rgba(163,230,53,0.12)]"
-          : "bg-[#050706]/65 backdrop-blur-xl border-b border-white/10"
+          : "bg-[#050706]/75 backdrop-blur-xl border-b border-white/10"
       }`}
     >
       <style>{`
@@ -136,7 +136,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      {/* Subtle Top Neon Accent Line on Scroll */}
+      {/* Subtle Bottom Neon Accent Line */}
       <div
         className={`pointer-events-none absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-lime-400/60 to-transparent transition-opacity duration-300 ${
           isScrolled ? "opacity-100" : "opacity-30"
@@ -144,32 +144,32 @@ export default function Navbar() {
       />
 
       {/* Cyberpunk Ambient Glows inside Glass Bar */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-full overflow-hidden -z-10">
-        <div className="absolute -top-16 right-[10%] w-[420px] h-[160px] bg-lime-400/15 blur-[80px] rounded-full" />
-        <div className="absolute -top-16 left-[10%] w-[280px] h-[140px] bg-lime-400/10 blur-[70px] rounded-full" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden -z-10">
+        <div className="absolute -top-16 right-[10%] w-[320px] sm:w-[420px] h-[160px] bg-lime-400/15 blur-[80px] rounded-full" />
+        <div className="absolute -top-16 left-[10%] w-[220px] sm:w-[280px] h-[140px] bg-lime-400/10 blur-[70px] rounded-full" />
       </div>
 
       {/* Main Navbar Container */}
       <div
-        className={`mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4 transition-all duration-300 ${
-          isScrolled ? "h-20" : "h-24"
+        className={`mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-3 transition-all duration-300 ${
+          isScrolled ? "h-20" : "h-20 sm:h-24"
         }`}
       >
         {/* Left: Hexagon Logo + MetriXa */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="relative flex items-center justify-center h-12 w-11 bg-lime-400 p-0.5 [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)] shadow-[0_0_20px_rgba(163,230,53,0.5)] group-hover:scale-105 transition-transform">
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+          <div className="relative flex items-center justify-center h-11 w-10 sm:h-12 sm:w-11 bg-lime-400 p-0.5 [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)] shadow-[0_0_20px_rgba(163,230,53,0.5)] group-hover:scale-105 transition-transform">
             <img
               src="/logo.jpg"
               alt="MetriXa Logo"
               className="h-full w-full object-cover scale-125 [clip-path:polygon(50%_0%,100%_25%,100%_75%,50%_100%,0%_75%,0%_25%)]"
             />
           </div>
-          <span className="font-sans text-[22px] font-black tracking-wide text-white leading-none">
+          <span className="font-sans text-xl sm:text-[22px] font-black tracking-wide text-white leading-none">
             Metri<span className="text-lime-400">Xa</span>
           </span>
         </Link>
 
-        {/* Right: Cyberpunk Pill Capsule */}
+        {/* Right: Cyberpunk Pill Capsule (Desktop) */}
         <nav className="hidden lg:flex items-center h-[54px] rounded-full border border-lime-400/40 bg-zinc-950/90 backdrop-blur-md pl-6 pr-1.5 shadow-[0_0_30px_rgba(163,230,53,0.18),inset_0_1px_0_rgba(255,255,255,0.08)]">
           <div className="flex items-center gap-5 xl:gap-6 pr-5">
             {navItems.map((item) => {
@@ -271,45 +271,63 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Hamburger Button (Crisp SVG + shrink-0 so it NEVER disappears) */}
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden inline-flex items-center justify-center h-11 w-11 rounded-full border border-lime-400/40 bg-zinc-950/90 text-lime-400"
+          className="lg:hidden relative z-50 shrink-0 inline-flex items-center justify-center h-11 w-11 rounded-full border-2 border-lime-400/60 bg-zinc-950 text-lime-400 shadow-[0_0_20px_rgba(163,230,53,0.35)] active:scale-95 transition-all"
           aria-label="Toggle Menu"
         >
-          {mobileMenuOpen ? "✕" : "☰"}
+          {mobileMenuOpen ? (
+            <svg className="w-5 h-5 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-5 h-5 text-lime-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          )}
         </button>
       </div>
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mx-6 mb-4 rounded-2xl border-2 border-lime-400/50 bg-[#070b08]/95 backdrop-blur-2xl p-5 flex flex-col gap-3 shadow-2xl max-h-[80vh] overflow-y-auto">
-          {navItems.map((item) => (
-            <div key={item.id} className="border-b border-white/10 pb-2.5 last:border-none">
-              <Link
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-sm font-extrabold text-white hover:text-lime-400 block"
-              >
-                {item.name}
-              </Link>
-              {item.items && (
-                <div className="flex flex-col gap-1 pl-3 mt-1.5">
-                  {item.items.map((sub) => (
-                    <Link
-                      key={sub.title}
-                      href={sub.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="text-xs text-zinc-300 py-1 hover:text-lime-400"
-                    >
-                      • {sub.title}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+        <div className="lg:hidden mx-4 sm:mx-6 mb-4 rounded-2xl border-2 border-lime-400/60 bg-[#070b08]/98 backdrop-blur-2xl p-5 flex flex-col gap-3 shadow-[0_25px_60px_rgba(0,0,0,0.95)] max-h-[80vh] overflow-y-auto">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <div key={item.id} className="border-b border-white/10 pb-2.5 last:border-none">
+                <Link
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-sm font-extrabold block ${
+                    isActive ? "text-lime-400" : "text-white hover:text-lime-400"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+                {item.items && (
+                  <div className="flex flex-col gap-1 pl-3 mt-1.5">
+                    {item.items.map((sub) => (
+                      <Link
+                        key={sub.title}
+                        href={sub.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="text-xs text-zinc-300 py-1 hover:text-lime-400 flex items-center justify-between"
+                      >
+                        <span>• {sub.title}</span>
+                        {sub.tag && (
+                          <span className="text-[10px] font-bold text-lime-400/80">
+                            {sub.tag}
+                          </span>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
 
           <Link
             href="/contact"
