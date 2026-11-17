@@ -11,14 +11,12 @@ type StoreTab = "all" | "digital-tools" | "digital-products" | "templates" | "cr
 interface StoreItem {
   id: string;
   category: Exclude<StoreTab, "all">;
-  categoryLabel: string;
-  badge: string;
   title: string;
-  sinhala: string;
-  desc: string;
-  highlights: string[];
-  status: "AVAILABLE" | "COMING SOON";
-  popular?: boolean;
+  image: string;
+  price: string;
+  billing: string;
+  warranty: string;
+  status: "AVAILABLE" | "SOON";
 }
 
 const categoryBento = [
@@ -60,80 +58,47 @@ const categoryBento = [
   },
 ];
 
+// Compact Tall Store Items (1:1 Square Image + Title + Price/mo + Full Warranty + Get Button ONLY)
 const storeCatalogueItems: StoreItem[] = [
-  // 1. DIGITAL TOOLS (Available Now)
-  {
-    id: "quillbot-pro",
-    category: "digital-tools",
-    categoryLabel: "Digital Tools",
-    badge: "AI WRITING TOOL",
-    title: "QuillBot Pro",
-    sinhala: "AI ලිවීමේ සහ Paraphrasing මෙවලම",
-    desc: "Unlimited paraphrasing, advanced grammar checking, plagiarism detection, and AI summarization for flawless writing.",
-    highlights: ["Unlimited Paraphraser Words", "All Writing Modes Unlocked", "Plagiarism & Grammar Pro"],
-    status: "AVAILABLE",
-  },
   {
     id: "capcut-pro",
     category: "digital-tools",
-    categoryLabel: "Digital Tools",
-    badge: "BEST SELLER • VIDEO AI",
     title: "CapCut Pro",
-    sinhala: "වෘත්තීයමය වීඩියෝ සහ Reels සංස්කරණයට",
-    desc: "Unlock all premium transitions, AI auto-captions, background removal, and 4K 60fps watermark-free exports.",
-    highlights: ["All Pro Effects & Transitions", "AI Auto-Captions & BG Remove", "4K 60fps Export (Mobile/PC)"],
+    image: "/tools/capcut.webp",
+    price: "Rs. 950",
+    billing: "/ month",
+    warranty: "Full Warranty",
     status: "AVAILABLE",
-    popular: true,
+  },
+  {
+    id: "quillbot-pro",
+    category: "digital-tools",
+    title: "QuillBot Premium",
+    image: "/tools/quilbot.avif",
+    price: "Rs. 650",
+    billing: "/ month",
+    warranty: "Full Warranty",
+    status: "AVAILABLE",
   },
   {
     id: "figma-pro",
     category: "digital-tools",
-    categoryLabel: "Digital Tools",
-    badge: "UI/UX SOFTWARE",
-    title: "Figma Professional",
-    sinhala: "වෙබ් සහ ඇප් UI/UX නිර්මාණකරුවන්ට",
-    desc: "Full professional workspace with unlimited files, shared team libraries, advanced prototyping, and Dev Mode.",
-    highlights: ["Unlimited Projects & History", "Shared Design Libraries", "Advanced Prototyping & Dev Mode"],
+    title: "Figma Pro",
+    image: "tools/figma.webp",
+    price: "Rs. 1,200",
+    billing: "/ month",
+    warranty: "Full Warranty",
     status: "AVAILABLE",
   },
-
-  // 2. DIGITAL PRODUCTS
-  {
-    id: "creator-growth-ebook",
-    category: "digital-products",
-    categoryLabel: "Digital Products",
-    badge: "E-BOOK & GUIDE",
-    title: "Small Business & Creator Digital Playbook",
-    sinhala: "ඩිජිටල් ව්‍යාපාර සහ Content නිර්මාණ අත්පොත",
-    desc: "Step-by-step downloadable e-book and growth blueprint for building and monetizing your brand online.",
-    highlights: ["PDF Instant Download", "AI Prompt Library Included", "Social Growth Checklists"],
-    status: "COMING SOON",
-  },
-
-  // 3. TEMPLATES
   {
     id: "canva-social-pack",
     category: "templates",
-    categoryLabel: "Templates",
-    badge: "CANVA & SOCIAL",
-    title: "Ultimate Social Media & Canva Template Bundle",
-    sinhala: "Canva සහ Social Media පෝස්ට් ටෙම්ප්ලේට් එකතුව",
-    desc: "100% customizable Canva, Facebook, Instagram, and YouTube cover/post templates for modern businesses.",
-    highlights: ["One-Click Canva Edit", "FB/IG Posts & Story Layouts", "Modern Website Section Wireframes"],
-    status: "COMING SOON",
-  },
-
-  // 4. CREATIVE RESOURCES
-  {
-    id: "pro-design-assets",
-    category: "creative-resources",
-    categoryLabel: "Creative Resources",
-    badge: "FONTS & GRAPHICS",
-    title: "MetriXa Creator Asset Vault (Fonts & Vectors)",
-    sinhala: "Fonts, Graphics සහ Design Assets එකතුව",
-    desc: "Premium collection of Sinhala/English display fonts, glowing vector elements, gradients, and graphic overlays.",
-    highlights: ["Curated Sinhala & English Fonts", "High-Res PNG & SVG Vectors", "Commercial-Ready Overlays"],
-    status: "COMING SOON",
+    title: "Canva & Social Pack",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80",
+    price: "Soon",
+    billing: "/ bundle",
+    warranty: "Full Warranty",
+    status: "SOON",
   },
 ];
 
@@ -154,10 +119,9 @@ export default function DigitalStorePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050706] text-white scroll-smooth">
+    <div className="min-h-screen bg-[#050706] text-white scroll-smooth overflow-x-hidden">
       <Navbar />
 
-      {/* Custom Keyframe Animations for Cyberpunk Vector Art */}
       <style>{`
         @keyframes storeFloat {
           0%, 100% { transform: translateY(0px); }
@@ -187,7 +151,6 @@ export default function DigitalStorePage() {
         {/* 1. DIGITAL STORE HERO SECTION                         */}
         {/* ===================================================== */}
         <section className="relative py-12 lg:py-16 px-6 sm:px-10 lg:px-12 overflow-hidden">
-          {/* Ambient Cyberpunk Background */}
           <div className="pointer-events-none absolute inset-0 z-0">
             <div className="absolute top-1/4 left-1/3 w-[550px] h-[340px] bg-lime-400/12 blur-[150px] rounded-full" />
             <div className="absolute bottom-10 right-1/4 w-[450px] h-[280px] bg-emerald-500/10 blur-[140px] rounded-full" />
@@ -207,7 +170,6 @@ export default function DigitalStorePage() {
 
           <div className="relative z-10 mx-auto max-w-7xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              {/* Left 7 Cols: Exact Requested Copy */}
               <div className="lg:col-span-7 text-left">
                 <div className="inline-flex items-center gap-2.5 rounded-full border border-lime-400/40 bg-lime-400/10 px-4 py-1.5 mb-6 shadow-[0_0_20px_rgba(163,230,53,0.15)]">
                   <span className="h-2 w-2 rounded-full bg-lime-400 animate-ping" />
@@ -216,7 +178,6 @@ export default function DigitalStorePage() {
                   </span>
                 </div>
 
-                {/* Main Heading */}
                 <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.08] mb-4">
                   Discover Our{" "}
                   <span className="bg-gradient-to-r from-lime-300 via-lime-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(163,230,53,0.35)]">
@@ -224,17 +185,14 @@ export default function DigitalStorePage() {
                   </span>
                 </h1>
 
-                {/* Subheading */}
                 <p className="text-lg sm:text-xl font-bold text-lime-300/95 mb-4">
                   Powerful Tools. Premium Resources. Unlimited Possibilities.
                 </p>
 
-                {/* Description */}
                 <p className="text-base sm:text-lg text-zinc-300/90 leading-relaxed max-w-2xl mb-8">
                   Explore digital tools, creative templates and premium resources designed to help you work smarter and create better.
                 </p>
 
-                {/* Quick Jump Category Pills */}
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     type="button"
@@ -259,7 +217,6 @@ export default function DigitalStorePage() {
                   <div className="st-scan pointer-events-none absolute inset-x-0 h-16 bg-gradient-to-b from-transparent via-lime-400/10 to-transparent" />
 
                   <svg viewBox="0 0 380 240" className="w-full h-full max-w-[350px]" fill="none">
-                    {/* Orbit Rings */}
                     <circle
                       cx="190"
                       cy="120"
@@ -272,7 +229,6 @@ export default function DigitalStorePage() {
                     />
                     <circle cx="190" cy="120" r="62" stroke="#34d399" strokeOpacity="0.25" strokeWidth="1.2" />
 
-                    {/* Connecting Energy Streams */}
                     <path
                       d="M90 62 L146 98 M290 62 L234 98 M90 178 L146 142 M290 178 L234 142"
                       stroke="#a3e635"
@@ -281,7 +237,6 @@ export default function DigitalStorePage() {
                       className="st-dash"
                     />
 
-                    {/* Center Store Core */}
                     <g className="st-float">
                       <polygon
                         points="190,72 234,96 234,144 190,168 146,144 146,96"
@@ -297,7 +252,6 @@ export default function DigitalStorePage() {
                       </text>
                     </g>
 
-                    {/* Node 1 (Top Left): Digital Tools */}
                     <g className="st-float-delay">
                       <rect x="18" y="32" width="90" height="44" rx="10" fill="#0b1710" stroke="#bef264" strokeWidth="1.8" />
                       <text x="28" y="52" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
@@ -308,7 +262,6 @@ export default function DigitalStorePage() {
                       </text>
                     </g>
 
-                    {/* Node 2 (Top Right): Digital Products */}
                     <g className="st-pulse">
                       <rect x="272" y="32" width="90" height="44" rx="10" fill="#0b1710" stroke="#34d399" strokeWidth="1.8" />
                       <text x="284" y="52" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
@@ -319,7 +272,6 @@ export default function DigitalStorePage() {
                       </text>
                     </g>
 
-                    {/* Node 3 (Bottom Left): Templates */}
                     <g className="st-pulse">
                       <rect x="18" y="164" width="90" height="44" rx="10" fill="#0b1710" stroke="#34d399" strokeWidth="1.8" />
                       <text x="28" y="184" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
@@ -330,7 +282,6 @@ export default function DigitalStorePage() {
                       </text>
                     </g>
 
-                    {/* Node 4 (Bottom Right): Creative Resources */}
                     <g className="st-float-delay">
                       <rect x="272" y="164" width="90" height="44" rx="10" fill="#0b1710" stroke="#bef264" strokeWidth="1.8" />
                       <text x="282" y="184" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
@@ -376,7 +327,6 @@ export default function DigitalStorePage() {
                   <div className="pointer-events-none absolute -top-20 -right-20 w-48 h-48 bg-lime-400/10 blur-3xl rounded-full group-hover:bg-lime-400/25 transition-all" />
 
                   <div>
-                    {/* Top Row: Number & Badge */}
                     <div className="flex items-center justify-between mb-5">
                       <div className="flex items-center gap-3">
                         <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-lime-400/40 bg-lime-400/15 font-mono text-xs font-black text-lime-400">
@@ -391,11 +341,9 @@ export default function DigitalStorePage() {
                       </span>
                     </div>
 
-                    {/* Animated Cyberpunk Vector Art for Each of the 4 Categories */}
                     <div className="relative h-36 w-full rounded-2xl border border-lime-400/20 bg-[#040705] mb-6 flex items-center justify-center overflow-hidden p-3">
                       <div className="st-scan pointer-events-none absolute inset-x-0 h-12 bg-gradient-to-b from-transparent via-lime-400/10 to-transparent" />
 
-                      {/* 01. Digital Tools Vector */}
                       {cat.id === "digital-tools" && (
                         <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
                           <path d="M95 65 L130 65 M210 65 L245 65" stroke="#a3e635" strokeWidth="2" strokeDasharray="4 4" className="st-dash" />
@@ -417,7 +365,6 @@ export default function DigitalStorePage() {
                         </svg>
                       )}
 
-                      {/* 02. Digital Products (E-books & Downloads) Vector */}
                       {cat.id === "digital-products" && (
                         <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
                           <g className="st-float">
@@ -439,7 +386,6 @@ export default function DigitalStorePage() {
                         </svg>
                       )}
 
-                      {/* 03. Templates (Canva, Social Media & Website) Vector */}
                       {cat.id === "templates" && (
                         <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
                           <g className="st-float">
@@ -462,16 +408,13 @@ export default function DigitalStorePage() {
                         </svg>
                       )}
 
-                      {/* 04. Creative Resources (Fonts, Graphics & Design Assets) Vector */}
                       {cat.id === "creative-resources" && (
                         <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
-                          {/* Typography Aa Card */}
                           <g className="st-float">
                             <rect x="32" y="24" width="82" height="82" rx="12" fill="#09130c" stroke="#bef264" strokeWidth="2" />
                             <text x="48" y="72" fill="#ecfccb" fontSize="28" fontWeight="900" fontFamily="serif">Aa</text>
                             <text x="48" y="94" fill="#a3e635" fontSize="8" fontWeight="bold" fontFamily="monospace">PRO FONTS</text>
                           </g>
-                          {/* Vector Pen Curve & Nodes */}
                           <g className="st-pulse">
                             <rect x="130" y="24" width="84" height="82" rx="12" fill="#0c1c11" stroke="#a3e635" strokeWidth="2" />
                             <path d="M146 82 Q172 32 198 82" stroke="#bef264" strokeWidth="2.2" fill="none" />
@@ -480,7 +423,6 @@ export default function DigitalStorePage() {
                             <rect x="195" y="79" width="6" height="6" fill="#a3e635" />
                             <text x="148" y="96" fill="#a3e635" fontSize="8" fontWeight="bold" fontFamily="monospace">VECTORS</text>
                           </g>
-                          {/* Graphics & Layers */}
                           <g className="st-float-delay">
                             <rect x="230" y="24" width="82" height="82" rx="12" fill="#09130c" stroke="#34d399" strokeWidth="1.8" />
                             <polygon points="271,40 292,74 250,74" fill="#a3e635" fillOpacity="0.25" stroke="#bef264" strokeWidth="1.6" />
@@ -490,7 +432,6 @@ export default function DigitalStorePage() {
                       )}
                     </div>
 
-                    {/* Title, Sinhala Subtitle & Description */}
                     <h3 className="text-2xl font-black text-white group-hover:text-lime-400 transition-colors">
                       {cat.title}
                     </h3>
@@ -502,7 +443,6 @@ export default function DigitalStorePage() {
                     </p>
                   </div>
 
-                  {/* Bottom Tags */}
                   <div className="pt-4 border-t border-white/10 flex flex-wrap gap-2">
                     {cat.examples.map((ex) => (
                       <span
@@ -520,22 +460,22 @@ export default function DigitalStorePage() {
         </section>
 
         {/* ===================================================== */}
-        {/* 3. FILTERABLE STORE CATALOGUE                         */}
+        {/* 3. BROWSE STORE ITEMS (TALL VERTICAL 1:1 IMAGE CARDS) */}
         {/* ===================================================== */}
-        <section id="store-catalogue" className="scroll-mt-28 relative py-16 px-6 sm:px-10 lg:px-12 border-t border-white/5">
-          <div className="mx-auto max-w-7xl">
+        <section id="store-catalogue" className="scroll-mt-28 relative py-14 px-6 sm:px-10 lg:px-12 border-t border-white/5">
+          <div className="mx-auto max-w-5xl">
             {/* Filter Header & Tabs */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 mb-12">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
               <div>
-                <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-lime-400 block mb-1">
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-lime-400 block mb-1">
                   BROWSE STORE ITEMS
                 </span>
-                <h2 className="text-2xl sm:text-4xl font-black text-white">
+                <h2 className="text-2xl sm:text-3xl font-black text-white">
                   Featured <span className="text-lime-400">Tools &amp; Resources</span>
                 </h2>
               </div>
 
-              {/* 5 Filter Buttons */}
+              {/* Filter Buttons */}
               <div className="flex flex-wrap items-center gap-2">
                 {[
                   { id: "all", label: "All Items" },
@@ -550,9 +490,9 @@ export default function DigitalStorePage() {
                       key={tab.id}
                       type="button"
                       onClick={() => setActiveTab(tab.id as StoreTab)}
-                      className={`rounded-full px-4 py-2 text-xs font-extrabold transition-all cursor-pointer ${
+                      className={`rounded-full px-3.5 py-1.5 text-xs font-extrabold transition-all cursor-pointer ${
                         active
-                          ? "bg-lime-400 text-zinc-950 shadow-[0_0_20px_rgba(163,230,53,0.5)]"
+                          ? "bg-lime-400 text-zinc-950 shadow-[0_0_15px_rgba(163,230,53,0.5)]"
                           : "border border-white/10 bg-zinc-950 text-zinc-300 hover:border-lime-400/50 hover:text-white"
                       }`}
                     >
@@ -563,68 +503,53 @@ export default function DigitalStorePage() {
               </div>
             </div>
 
-            {/* Catalogue Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+            {/* TALL VERTICAL MINI CARDS WITH 1:1 SQUARE IMAGE */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
               {filteredItems.map((item) => (
                 <div
                   key={item.id}
                   id={item.id}
-                  className={`group relative rounded-3xl p-7 backdrop-blur-xl transition-all duration-300 flex flex-col justify-between ${
-                    item.popular
-                      ? "border-2 border-lime-400 bg-gradient-to-b from-[#0d1910] to-[#070b08] shadow-[0_20px_55px_rgba(163,230,53,0.18)]"
-                      : "border border-white/10 bg-zinc-950/85 hover:border-lime-400/60"
-                  }`}
+                  className="scroll-mt-28 group relative rounded-2xl border border-white/10 bg-zinc-950/90 p-3 sm:p-3.5 hover:border-lime-400 transition-all duration-300 flex flex-col justify-between shadow-[0_12px_35px_rgba(0,0,0,0.7)] hover:shadow-[0_15px_40px_rgba(163,230,53,0.2)] hover:-translate-y-1"
                 >
                   <div>
-                    <div className="flex items-center justify-between gap-2 mb-5">
-                      <span className="rounded-full border border-lime-400/35 bg-lime-400/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-lime-400">
-                        {item.badge}
-                      </span>
-                      <span
-                        className={`rounded-full px-2.5 py-0.5 text-[10px] font-black uppercase ${
-                          item.status === "AVAILABLE"
-                            ? "bg-lime-400 text-zinc-950"
-                            : "border border-white/15 bg-white/5 text-zinc-400"
-                        }`}
-                      >
-                        {item.status}
-                      </span>
+                    {/* 1:1 Aspect Square Image Container */}
+                    <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-900 mb-3.5 border border-white/10">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
                     </div>
 
-                    <div className="text-[11px] font-extrabold uppercase tracking-wider text-zinc-500 mb-1">
-                      {item.categoryLabel}
-                    </div>
-                    <h3 className="text-2xl font-black text-white group-hover:text-lime-400 transition-colors">
+                    {/* Tool Title */}
+                    <h3 className="text-sm sm:text-base font-black text-white group-hover:text-lime-400 transition-colors truncate">
                       {item.title}
                     </h3>
-                    <p className="text-xs font-bold text-lime-400/90 mt-1 mb-3">
-                      {item.sinhala}
-                    </p>
-                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-6">
-                      {item.desc}
-                    </p>
 
-                    <div className="space-y-2 border-t border-white/10 pt-4 mb-7">
-                      {item.highlights.map((h, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300">
-                          <span className="text-lime-400 font-black">✓</span>
-                          <span>{h}</span>
-                        </div>
-                      ))}
+                    {/* Warranty Label Pill */}
+                    <div className="mt-1.5 inline-flex items-center gap-1 rounded-md border border-lime-400/40 bg-lime-400/10 px-2 py-0.5 text-[10px] font-bold text-lime-300">
+                      <span>🛡️</span>
+                      <span>{item.warranty}</span>
+                    </div>
+
+                    {/* Monthly Price */}
+                    <div className="mt-2.5 mb-3.5 flex items-baseline gap-1">
+                      <span className="text-lg sm:text-xl font-black text-lime-400">
+                        {item.price}
+                      </span>
+                      <span className="text-[11px] font-semibold text-zinc-400">
+                        {item.billing}
+                      </span>
                     </div>
                   </div>
 
+                  {/* Get Button -> Auto-selects tool on /contact */}
                   <Link
                     href={`/contact?store=${item.id}`}
-                    className={`w-full inline-flex items-center justify-center gap-2 rounded-full py-3.5 px-6 text-xs font-black uppercase tracking-wider transition-all ${
-                      item.status === "AVAILABLE"
-                        ? "bg-gradient-to-b from-lime-300 to-lime-500 text-zinc-950 shadow-[0_0_25px_rgba(163,230,53,0.45)] hover:shadow-[0_0_40px_rgba(163,230,53,0.85)]"
-                        : "border border-lime-400/35 bg-lime-400/10 text-lime-400 hover:bg-lime-400 hover:text-zinc-950"
-                    }`}
+                    className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-b from-lime-300 to-lime-500 hover:from-lime-200 hover:to-lime-400 py-2.5 px-3 text-xs font-black uppercase tracking-wider text-zinc-950 transition-all shadow-[0_0_15px_rgba(163,230,53,0.35)] hover:shadow-[0_0_25px_rgba(163,230,53,0.75)]"
                   >
-                    <span>
-                      {item.status === "AVAILABLE" ? `Get ${item.title}` : "Request Early Access"}
-                    </span>
+                    <span>Get</span>
                     <span>→</span>
                   </Link>
                 </div>
