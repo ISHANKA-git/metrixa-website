@@ -5,19 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
-
-type StoreTab = "all" | "digital-tools" | "digital-products" | "templates" | "creative-resources";
-
-interface StoreItem {
-  id: string;
-  category: Exclude<StoreTab, "all">;
-  title: string;
-  image: string;
-  price: string;
-  billing: string;
-  warranty: string;
-  status: "AVAILABLE" | "SOON";
-}
+import { storeCatalogueItems, StoreTab } from "@/data/storeItems";
 
 const categoryBento = [
   {
@@ -55,50 +43,6 @@ const categoryBento = [
     desc: "Curated typography, custom vector graphics, overlays, icons, and high-resolution design assets for standout projects.",
     examples: ["Sinhala & English Font Packs", "Cyberpunk & Modern Vectors", "3D Icons & Overlays", "Texture & Gradient Kits"],
     badge: "DESIGN ASSETS",
-  },
-];
-
-// Compact Tall Store Items (1:1 Square Image + Title + Price/mo + Full Warranty + Get Button ONLY)
-const storeCatalogueItems: StoreItem[] = [
-  {
-    id: "capcut-pro",
-    category: "digital-tools",
-    title: "CapCut Pro",
-    image: "/tools/capcut.webp",
-    price: "Rs. 950",
-    billing: "/ month",
-    warranty: "Full Warranty",
-    status: "AVAILABLE",
-  },
-  {
-    id: "quillbot-pro",
-    category: "digital-tools",
-    title: "QuillBot Premium",
-    image: "/tools/quilbot.avif",
-    price: "Rs. 650",
-    billing: "/ month",
-    warranty: "Full Warranty",
-    status: "AVAILABLE",
-  },
-  {
-    id: "figma-pro",
-    category: "digital-tools",
-    title: "Figma Pro",
-    image: "tools/figma.webp",
-    price: "Rs. 1,200",
-    billing: "/ month",
-    warranty: "Full Warranty",
-    status: "AVAILABLE",
-  },
-  {
-    id: "canva-social-pack",
-    category: "templates",
-    title: "Canva & Social Pack",
-    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=600&q=80",
-    price: "Soon",
-    billing: "/ bundle",
-    warranty: "Full Warranty",
-    status: "SOON",
   },
 ];
 
@@ -147,9 +91,7 @@ export default function DigitalStorePage() {
       `}</style>
 
       <main className="pt-28">
-        {/* ===================================================== */}
-        {/* 1. DIGITAL STORE HERO SECTION                         */}
-        {/* ===================================================== */}
+        {/* 1. DIGITAL STORE HERO SECTION */}
         <section className="relative py-12 lg:py-16 px-6 sm:px-10 lg:px-12 overflow-hidden">
           <div className="pointer-events-none absolute inset-0 z-0">
             <div className="absolute top-1/4 left-1/3 w-[550px] h-[340px] bg-lime-400/12 blur-[150px] rounded-full" />
@@ -211,85 +153,43 @@ export default function DigitalStorePage() {
                 </div>
               </div>
 
-              {/* Right 5 Cols: Animated 4-Pillar Digital Store Hub Vector Art */}
               <div className="lg:col-span-5">
                 <div className="relative h-64 sm:h-72 w-full rounded-[28px] border border-lime-400/30 bg-gradient-to-b from-[#0b150d]/90 to-[#050706] p-4 flex items-center justify-center overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8),0_0_40px_rgba(163,230,53,0.12)]">
                   <div className="st-scan pointer-events-none absolute inset-x-0 h-16 bg-gradient-to-b from-transparent via-lime-400/10 to-transparent" />
 
                   <svg viewBox="0 0 380 240" className="w-full h-full max-w-[350px]" fill="none">
-                    <circle
-                      cx="190"
-                      cy="120"
-                      r="94"
-                      stroke="#a3e635"
-                      strokeOpacity="0.2"
-                      strokeWidth="1.2"
-                      strokeDasharray="6 6"
-                      className="st-dash"
-                    />
+                    <circle cx="190" cy="120" r="94" stroke="#a3e635" strokeOpacity="0.2" strokeWidth="1.2" strokeDasharray="6 6" className="st-dash" />
                     <circle cx="190" cy="120" r="62" stroke="#34d399" strokeOpacity="0.25" strokeWidth="1.2" />
-
-                    <path
-                      d="M90 62 L146 98 M290 62 L234 98 M90 178 L146 142 M290 178 L234 142"
-                      stroke="#a3e635"
-                      strokeWidth="2"
-                      strokeDasharray="5 5"
-                      className="st-dash"
-                    />
+                    <path d="M90 62 L146 98 M290 62 L234 98 M90 178 L146 142 M290 178 L234 142" stroke="#a3e635" strokeWidth="2" strokeDasharray="5 5" className="st-dash" />
 
                     <g className="st-float">
-                      <polygon
-                        points="190,72 234,96 234,144 190,168 146,144 146,96"
-                        fill="#09130c"
-                        stroke="#a3e635"
-                        strokeWidth="2.4"
-                      />
-                      <text x="159" y="116" fill="#ecfccb" fontSize="11" fontWeight="900" fontFamily="monospace">
-                        METRIXA
-                      </text>
-                      <text x="167" y="132" fill="#a3e635" fontSize="10" fontWeight="900" fontFamily="monospace">
-                        STORE
-                      </text>
+                      <polygon points="190,72 234,96 234,144 190,168 146,144 146,96" fill="#09130c" stroke="#a3e635" strokeWidth="2.4" />
+                      <text x="159" y="116" fill="#ecfccb" fontSize="11" fontWeight="900" fontFamily="monospace">METRIXA</text>
+                      <text x="167" y="132" fill="#a3e635" fontSize="10" fontWeight="900" fontFamily="monospace">STORE</text>
                     </g>
 
                     <g className="st-float-delay">
                       <rect x="18" y="32" width="90" height="44" rx="10" fill="#0b1710" stroke="#bef264" strokeWidth="1.8" />
-                      <text x="28" y="52" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
-                        AI &amp; TOOLS
-                      </text>
-                      <text x="28" y="66" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">
-                        SOFTWARE
-                      </text>
+                      <text x="28" y="52" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">AI &amp; TOOLS</text>
+                      <text x="28" y="66" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">SOFTWARE</text>
                     </g>
 
                     <g className="st-pulse">
                       <rect x="272" y="32" width="90" height="44" rx="10" fill="#0b1710" stroke="#34d399" strokeWidth="1.8" />
-                      <text x="284" y="52" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
-                        E-BOOKS
-                      </text>
-                      <text x="284" y="66" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">
-                        PRODUCTS
-                      </text>
+                      <text x="284" y="52" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">E-BOOKS</text>
+                      <text x="284" y="66" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">PRODUCTS</text>
                     </g>
 
                     <g className="st-pulse">
                       <rect x="18" y="164" width="90" height="44" rx="10" fill="#0b1710" stroke="#34d399" strokeWidth="1.8" />
-                      <text x="28" y="184" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
-                        TEMPLATES
-                      </text>
-                      <text x="28" y="198" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">
-                        CANVA &amp; WEB
-                      </text>
+                      <text x="28" y="184" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">TEMPLATES</text>
+                      <text x="28" y="198" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">CANVA &amp; WEB</text>
                     </g>
 
                     <g className="st-float-delay">
                       <rect x="272" y="164" width="90" height="44" rx="10" fill="#0b1710" stroke="#bef264" strokeWidth="1.8" />
-                      <text x="282" y="184" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">
-                        RESOURCES
-                      </text>
-                      <text x="282" y="198" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">
-                        FONTS &amp; ART
-                      </text>
+                      <text x="282" y="184" fill="#ffffff" fontSize="9" fontWeight="900" fontFamily="monospace">RESOURCES</text>
+                      <text x="282" y="198" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">FONTS &amp; ART</text>
                     </g>
                   </svg>
                 </div>
@@ -298,9 +198,7 @@ export default function DigitalStorePage() {
           </div>
         </section>
 
-        {/* ===================================================== */}
-        {/* 2. THE 4 MAIN DIGITAL STORE PILLARS (2x2 BENTO GRID)  */}
-        {/* ===================================================== */}
+        {/* 2. THE 4 MAIN DIGITAL STORE PILLARS */}
         <section className="relative py-16 px-6 sm:px-10 lg:px-12 border-t border-white/5">
           <div className="mx-auto max-w-7xl">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
@@ -324,8 +222,6 @@ export default function DigitalStorePage() {
                   onClick={() => handleCategoryClick(cat.id)}
                   className="group relative rounded-[30px] border border-lime-400/25 bg-zinc-950/85 p-7 sm:p-8 backdrop-blur-xl transition-all duration-300 hover:border-lime-400 hover:shadow-[0_20px_50px_rgba(163,230,53,0.16)] hover:-translate-y-1 flex flex-col justify-between overflow-hidden cursor-pointer"
                 >
-                  <div className="pointer-events-none absolute -top-20 -right-20 w-48 h-48 bg-lime-400/10 blur-3xl rounded-full group-hover:bg-lime-400/25 transition-all" />
-
                   <div>
                     <div className="flex items-center justify-between mb-5">
                       <div className="flex items-center gap-3">
@@ -339,97 +235,6 @@ export default function DigitalStorePage() {
                       <span className="text-xs font-bold text-zinc-400 group-hover:text-lime-400 group-hover:translate-x-1 transition-all">
                         Explore →
                       </span>
-                    </div>
-
-                    <div className="relative h-36 w-full rounded-2xl border border-lime-400/20 bg-[#040705] mb-6 flex items-center justify-center overflow-hidden p-3">
-                      <div className="st-scan pointer-events-none absolute inset-x-0 h-12 bg-gradient-to-b from-transparent via-lime-400/10 to-transparent" />
-
-                      {cat.id === "digital-tools" && (
-                        <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
-                          <path d="M95 65 L130 65 M210 65 L245 65" stroke="#a3e635" strokeWidth="2" strokeDasharray="4 4" className="st-dash" />
-                          <g className="st-float">
-                            <rect x="25" y="30" width="70" height="70" rx="12" fill="#09130c" stroke="#bef264" strokeWidth="1.8" />
-                            <text x="38" y="63" fill="#ffffff" fontSize="9.5" fontWeight="900" fontFamily="monospace">QUILL</text>
-                            <text x="43" y="77" fill="#a3e635" fontSize="8" fontWeight="bold" fontFamily="monospace">AI PRO</text>
-                          </g>
-                          <g className="st-pulse">
-                            <rect x="130" y="22" width="80" height="86" rx="14" fill="#0c1c11" stroke="#a3e635" strokeWidth="2.2" />
-                            <text x="145" y="62" fill="#ecfccb" fontSize="11" fontWeight="900" fontFamily="monospace">CAPCUT</text>
-                            <text x="148" y="78" fill="#a3e635" fontSize="9" fontWeight="bold" fontFamily="monospace">4K PRO</text>
-                          </g>
-                          <g className="st-float-delay">
-                            <rect x="245" y="30" width="70" height="70" rx="12" fill="#09130c" stroke="#34d399" strokeWidth="1.8" />
-                            <text x="260" y="63" fill="#ffffff" fontSize="9.5" fontWeight="900" fontFamily="monospace">FIGMA</text>
-                            <text x="262" y="77" fill="#a3e635" fontSize="8" fontWeight="bold" fontFamily="monospace">UI PRO</text>
-                          </g>
-                        </svg>
-                      )}
-
-                      {cat.id === "digital-products" && (
-                        <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
-                          <g className="st-float">
-                            <rect x="115" y="16" width="110" height="98" rx="10" fill="#09130c" stroke="#a3e635" strokeWidth="2" />
-                            <line x1="132" y1="38" x2="208" y2="38" stroke="#bef264" strokeWidth="2.5" strokeLinecap="round" />
-                            <line x1="132" y1="52" x2="195" y2="52" stroke="#a3e635" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" />
-                            <rect x="132" y="68" width="76" height="28" rx="6" fill="#a3e635" fillOpacity="0.18" stroke="#a3e635" />
-                            <text x="146" y="86" fill="#ecfccb" fontSize="9.5" fontWeight="900" fontFamily="monospace">E-BOOK PDF</text>
-                          </g>
-                          <g className="st-pulse">
-                            <circle cx="62" cy="65" r="24" fill="#0b1710" stroke="#bef264" strokeWidth="1.6" />
-                            <path d="M62 53 V73 M54 66 L62 74 L70 66" stroke="#a3e635" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                          </g>
-                          <g className="st-float-delay">
-                            <rect x="246" y="42" width="72" height="46" rx="8" fill="#0b1710" stroke="#34d399" strokeWidth="1.6" />
-                            <text x="257" y="63" fill="#ffffff" fontSize="8.5" fontWeight="900" fontFamily="monospace">INSTANT</text>
-                            <text x="255" y="76" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">DOWNLOAD</text>
-                          </g>
-                        </svg>
-                      )}
-
-                      {cat.id === "templates" && (
-                        <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
-                          <g className="st-float">
-                            <rect x="95" y="18" width="150" height="94" rx="10" fill="#09130c" stroke="#a3e635" strokeWidth="2" />
-                            <line x1="95" y1="36" x2="245" y2="36" stroke="#a3e635" strokeOpacity="0.5" />
-                            <rect x="108" y="46" width="56" height="52" rx="6" fill="#a3e635" fillOpacity="0.18" stroke="#bef264" />
-                            <rect x="174" y="46" width="58" height="22" rx="4" fill="#34d399" fillOpacity="0.2" stroke="#34d399" />
-                            <rect x="174" y="76" width="58" height="22" rx="4" fill="#a3e635" fillOpacity="0.12" stroke="#a3e635" />
-                          </g>
-                          <g className="st-float-delay">
-                            <rect x="22" y="38" width="58" height="54" rx="8" fill="#0b1710" stroke="#bef264" strokeWidth="1.6" />
-                            <text x="32" y="64" fill="#ecfccb" fontSize="9" fontWeight="900" fontFamily="monospace">CANVA</text>
-                            <text x="34" y="77" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">PACKS</text>
-                          </g>
-                          <g className="st-pulse">
-                            <rect x="260" y="38" width="58" height="54" rx="8" fill="#0b1710" stroke="#34d399" strokeWidth="1.6" />
-                            <text x="270" y="64" fill="#ecfccb" fontSize="9" fontWeight="900" fontFamily="monospace">WEB UI</text>
-                            <text x="272" y="77" fill="#a3e635" fontSize="7.5" fontWeight="bold" fontFamily="monospace">KITS</text>
-                          </g>
-                        </svg>
-                      )}
-
-                      {cat.id === "creative-resources" && (
-                        <svg viewBox="0 0 340 130" className="w-full h-full max-w-[310px]" fill="none">
-                          <g className="st-float">
-                            <rect x="32" y="24" width="82" height="82" rx="12" fill="#09130c" stroke="#bef264" strokeWidth="2" />
-                            <text x="48" y="72" fill="#ecfccb" fontSize="28" fontWeight="900" fontFamily="serif">Aa</text>
-                            <text x="48" y="94" fill="#a3e635" fontSize="8" fontWeight="bold" fontFamily="monospace">PRO FONTS</text>
-                          </g>
-                          <g className="st-pulse">
-                            <rect x="130" y="24" width="84" height="82" rx="12" fill="#0c1c11" stroke="#a3e635" strokeWidth="2" />
-                            <path d="M146 82 Q172 32 198 82" stroke="#bef264" strokeWidth="2.2" fill="none" />
-                            <circle cx="172" cy="56" r="4" fill="#ecfccb" />
-                            <rect x="143" y="79" width="6" height="6" fill="#a3e635" />
-                            <rect x="195" y="79" width="6" height="6" fill="#a3e635" />
-                            <text x="148" y="96" fill="#a3e635" fontSize="8" fontWeight="bold" fontFamily="monospace">VECTORS</text>
-                          </g>
-                          <g className="st-float-delay">
-                            <rect x="230" y="24" width="82" height="82" rx="12" fill="#09130c" stroke="#34d399" strokeWidth="1.8" />
-                            <polygon points="271,40 292,74 250,74" fill="#a3e635" fillOpacity="0.25" stroke="#bef264" strokeWidth="1.6" />
-                            <text x="249" y="94" fill="#a3e635" fontSize="8" fontWeight="bold" fontFamily="monospace">ASSETS</text>
-                          </g>
-                        </svg>
-                      )}
                     </div>
 
                     <h3 className="text-2xl font-black text-white group-hover:text-lime-400 transition-colors">
@@ -459,12 +264,9 @@ export default function DigitalStorePage() {
           </div>
         </section>
 
-        {/* ===================================================== */}
         {/* 3. BROWSE STORE ITEMS (TALL VERTICAL 1:1 IMAGE CARDS) */}
-        {/* ===================================================== */}
         <section id="store-catalogue" className="scroll-mt-28 relative py-14 px-6 sm:px-10 lg:px-12 border-t border-white/5">
           <div className="mx-auto max-w-5xl">
-            {/* Filter Header & Tabs */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
               <div>
                 <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-lime-400 block mb-1">
@@ -475,7 +277,6 @@ export default function DigitalStorePage() {
                 </h2>
               </div>
 
-              {/* Filter Buttons */}
               <div className="flex flex-wrap items-center gap-2">
                 {[
                   { id: "all", label: "All Items" },

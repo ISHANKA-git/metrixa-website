@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { storeCatalogueItems, formatStoreOptionLabel } from "@/data/storeItems";
 
 // ඔබේ WhatsApp අංකය මෙතැනට දමන්න (Country code 94 සමඟ, + ලකුණ නැතිව)
 const WHATSAPP_NUMBER = "94700000000";
@@ -20,14 +21,8 @@ const serviceOptions = [
   "Pro Business & AI Automation (Custom Inquiry)",
 ];
 
-const storeOptions = [
-  "CapCut Pro (Rs. 950/month — Full Warranty)",
-  "QuillBot Pro (Rs. 650/month — Full Warranty)",
-  "Figma Professional (Rs. 1,200/month — Full Warranty)",
-  "Creator Digital Playbook (E-Book & Guide)",
-  "Social Media Template Pack (Canva & Web)",
-  "Creator Asset Vault (Fonts & Graphics)",
-];
+// Automatically built from src/data/storeItems.ts
+const storeOptions = storeCatalogueItems.map(formatStoreOptionLabel);
 
 const courseOptions = [
   "Free Community Courses Waitlist",
@@ -40,15 +35,6 @@ const communityOptions = [
   "Discord Server Early Access",
   "General Partnership / Other Inquiry",
 ];
-
-const storeParamMap: Record<string, string> = {
-  "capcut-pro": storeOptions[0],
-  "quillbot-pro": storeOptions[1],
-  "figma-pro": storeOptions[2],
-  "creator-growth-ebook": storeOptions[3],
-  "canva-social-pack": storeOptions[4],
-  "pro-design-assets": storeOptions[5],
-};
 
 const packageParamMap: Record<string, string> = {
   "digital-starter-7500": serviceOptions[0],
@@ -96,9 +82,10 @@ function ContactFormSection() {
 
     if (storeKey) {
       setInquiryType("store");
-      if (storeParamMap[storeKey]) {
-        setSelectedItem(storeParamMap[storeKey]);
-      } else {
+      const matchedTool = storeCatalogueItems.find((item) => item.id === storeKey);
+      if (matchedTool) {
+        setSelectedItem(formatStoreOptionLabel(matchedTool));
+      } else if (storeOptions.length > 0) {
         setSelectedItem(storeOptions[0]);
       }
     } else if (packageKey) {
@@ -122,7 +109,7 @@ function ContactFormSection() {
   const handleTypeChange = (type: InquiryType) => {
     setInquiryType(type);
     if (type === "services") setSelectedItem(serviceOptions[0]);
-    if (type === "store") setSelectedItem(storeOptions[0]);
+    if (type === "store") setSelectedItem(storeOptions[0] || "");
     if (type === "courses") setSelectedItem(courseOptions[0]);
     if (type === "community") setSelectedItem(communityOptions[0]);
   };
@@ -318,30 +305,6 @@ export default function ContactPage() {
     <div className="min-h-screen bg-[#050706] text-white scroll-smooth overflow-x-hidden">
       <Navbar />
 
-      <style>{`
-        @keyframes ctFloat {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-7px); }
-        }
-        @keyframes ctPulse {
-          0%, 100% { opacity: 0.35; transform: scale(0.96); }
-          50% { opacity: 0.95; transform: scale(1.04); }
-        }
-        @keyframes ctDash {
-          to { stroke-dashoffset: -40; }
-        }
-        @keyframes ctScan {
-          0% { transform: translateY(-100%); opacity: 0; }
-          50% { opacity: 0.65; }
-          100% { transform: translateY(100%); opacity: 0; }
-        }
-        .ct-float { animation: ctFloat 4.2s ease-in-out infinite; }
-        .ct-float-delay { animation: ctFloat 4.8s ease-in-out 1.4s infinite; }
-        .ct-pulse { animation: ctPulse 3.2s ease-in-out infinite; }
-        .ct-dash { animation: ctDash 2.2s linear infinite; }
-        .ct-scan { animation: ctScan 3.8s linear infinite; }
-      `}</style>
-
       <main className="pt-28">
         {/* 1. CONTACT HERO */}
         <section className="relative py-12 lg:py-16 px-6 sm:px-10 lg:px-12 overflow-hidden">
@@ -351,57 +314,24 @@ export default function ContactPage() {
           </div>
 
           <div className="relative z-10 mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-7 text-left">
-                <div className="inline-flex items-center gap-2.5 rounded-full border border-lime-400/40 bg-lime-400/10 px-4 py-1.5 mb-6 shadow-[0_0_20px_rgba(163,230,53,0.15)]">
-                  <span className="h-2 w-2 rounded-full bg-lime-400 animate-ping" />
-                  <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-lime-400">
-                    GET STARTED WITH METRIXA • 24/7 RESPONSE
-                  </span>
-                </div>
-
-                <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.08] mb-5">
-                  Let&apos;s Build, Create &amp;{" "}
-                  <span className="bg-gradient-to-r from-lime-300 via-lime-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(163,230,53,0.35)]">
-                    Grow Together.
-                  </span>
-                </h1>
-
-                <p className="text-base sm:text-lg text-zinc-300/90 leading-relaxed max-w-2xl mb-4">
-                  Ready to order a Small Business Starter Package, unlock Pro Digital Tools, or join our learning community? Select what you need below and connect with us directly.
-                </p>
+            <div className="max-w-3xl text-left">
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-lime-400/40 bg-lime-400/10 px-4 py-1.5 mb-6 shadow-[0_0_20px_rgba(163,230,53,0.15)]">
+                <span className="h-2 w-2 rounded-full bg-lime-400 animate-ping" />
+                <span className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-lime-400">
+                  GET STARTED WITH METRIXA • 24/7 RESPONSE
+                </span>
               </div>
 
-              <div className="lg:col-span-5">
-                <div className="relative h-56 sm:h-64 w-full rounded-[28px] border border-lime-400/30 bg-gradient-to-b from-[#0b150d]/90 to-[#050706] p-4 flex items-center justify-center overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.8)]">
-                  <div className="ct-scan pointer-events-none absolute inset-x-0 h-16 bg-gradient-to-b from-transparent via-lime-400/10 to-transparent" />
-                  <svg viewBox="0 0 380 220" className="w-full h-full max-w-[340px]" fill="none">
-                    <circle cx="190" cy="110" r="86" stroke="#a3e635" strokeOpacity="0.2" strokeWidth="1.2" strokeDasharray="6 6" className="ct-dash" />
-                    <path d="M85 65 L145 98 M295 65 L235 98 M85 155 L145 122 M295 155 L235 122" stroke="#a3e635" strokeWidth="2" strokeDasharray="5 5" className="ct-dash" />
-                    <g className="ct-float">
-                      <polygon points="190,65 232,89 232,135 190,159 148,135 148,89" fill="#09140c" stroke="#a3e635" strokeWidth="2.4" />
-                      <text x="160" y="108" fill="#ecfccb" fontSize="10.5" fontWeight="900" fontFamily="monospace">INSTANT</text>
-                      <text x="160" y="124" fill="#a3e635" fontSize="10" fontWeight="900" fontFamily="monospace">CONNECT</text>
-                    </g>
-                    <g className="ct-pulse">
-                      <rect x="20" y="38" width="84" height="40" rx="9" fill="#0b1710" stroke="#bef264" strokeWidth="1.8" />
-                      <text x="30" y="62" fill="#ffffff" fontSize="9.5" fontWeight="900" fontFamily="monospace">WHATSAPP</text>
-                    </g>
-                    <g className="ct-float-delay">
-                      <rect x="276" y="38" width="84" height="40" rx="9" fill="#0b1710" stroke="#34d399" strokeWidth="1.8" />
-                      <text x="290" y="62" fill="#ffffff" fontSize="9.5" fontWeight="900" fontFamily="monospace">EMAIL 24/7</text>
-                    </g>
-                    <g className="ct-float-delay">
-                      <rect x="20" y="142" width="84" height="40" rx="9" fill="#0b1710" stroke="#34d399" strokeWidth="1.8" />
-                      <text x="29" y="166" fill="#a3e635" fontSize="9" fontWeight="900" fontFamily="monospace">WARRANTY</text>
-                    </g>
-                    <g className="ct-pulse">
-                      <rect x="276" y="142" width="84" height="40" rx="9" fill="#0b1710" stroke="#bef264" strokeWidth="1.8" />
-                      <text x="288" y="166" fill="#a3e635" fontSize="9" fontWeight="900" fontFamily="monospace">PRO GUIDE</text>
-                    </g>
-                  </svg>
-                </div>
-              </div>
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black tracking-tight text-white leading-[1.08] mb-5">
+                Let&apos;s Build, Create &amp;{" "}
+                <span className="bg-gradient-to-r from-lime-300 via-lime-400 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(163,230,53,0.35)]">
+                  Grow Together.
+                </span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-zinc-300/90 leading-relaxed">
+                Ready to order a Small Business Starter Package, unlock Pro Digital Tools, or join our learning community? Select what you need below and connect with us directly.
+              </p>
             </div>
           </div>
         </section>
@@ -470,38 +400,27 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Digital Store Monthly Rates Summary */}
+                {/* Auto-Synced Digital Store Rates Summary */}
                 <div className="rounded-[28px] border border-white/10 bg-zinc-950/85 p-7">
                   <h3 className="text-base font-black text-white mb-1">
-                    Digital Store &amp; Package Rates
+                    Digital Store Rates
                   </h3>
                   <p className="text-xs text-lime-400 font-bold mb-4">
                     100% Full Warranty Included
                   </p>
 
                   <div className="space-y-2.5 text-xs">
-                    <div className="flex items-center justify-between py-2 border-b border-white/5">
-                      <span className="text-zinc-300">QuillBot Pro</span>
-                      <span className="font-black text-lime-400">Rs. 650 / mo</span>
-                    </div>
-                    <div className="flex items-center justify-between py-2 border-b border-white/5">
-                      <span className="text-zinc-300">CapCut Pro</span>
-                      <span className="font-black text-lime-400">Rs. 950 / mo</span>
-                    </div>
-                    <div className="flex items-center justify-between py-2 border-b border-white/5">
-                      <span className="text-zinc-300">Figma Professional</span>
-                      <span className="font-black text-lime-400">Rs. 1,200 / mo</span>
-                    </div>
-                    <div className="flex items-center justify-between py-2 border-b border-white/5">
-                      <span className="text-zinc-300">Mini Website (Free Host)</span>
-                      <span className="font-black text-lime-400">Rs. 5,000/=</span>
-                    </div>
-                    <div className="flex items-center justify-between pt-2">
-                      <span className="font-bold text-white">Digital Starter Pack</span>
-                      <span className="rounded-lg bg-lime-400 px-2 py-0.5 font-black text-zinc-950">
-                        Rs. 7,500/=
-                      </span>
-                    </div>
+                    {storeCatalogueItems.map((tool) => (
+                      <div
+                        key={tool.id}
+                        className="flex items-center justify-between py-2 border-b border-white/5 last:border-none"
+                      >
+                        <span className="text-zinc-300">{tool.title}</span>
+                        <span className="font-black text-lime-400">
+                          {tool.price} {tool.billing}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
