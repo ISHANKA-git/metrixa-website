@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import { storeCatalogueItems, formatStoreOptionLabel } from "@/data/storeItems";
 
 // ඔබේ WhatsApp අංකය මෙතැනට දමන්න (Country code 94 සමඟ, + ලකුණ නැතිව)
-const WHATSAPP_NUMBER = "94700000000";
+const WHATSAPP_NUMBER = "94741634379";
 
 type InquiryType = "services" | "store" | "courses" | "community";
 
